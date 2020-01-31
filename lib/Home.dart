@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tabbar/AccountTab.dart';
+import 'package:tabbar/EmailTab.dart';
+import 'package:tabbar/HomeTab.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,10 +16,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    _tabController = TabController(
-      length: 3,
-      vsync: this
-    );
+    _tabController = TabController(length: 3, vsync: this, initialIndex: 1);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
   }
 
   @override
@@ -24,6 +30,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         title: Text("Abas"),
+        backgroundColor: Colors.blue,
         bottom: TabBar(
           controller: _tabController,
           tabs: <Widget>[
@@ -45,9 +52,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[
-          Text("Primeira pagina"),
-          Text("Segunda pagina"),
-          Text("Terceira pagina"),
+          HomeTab(),
+          EmailTab(),
+          AccountTab(),
         ],
       ),
     );
